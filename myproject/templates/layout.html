@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            Employee App
+        {% endblock %}
+    </title>
+    {% comment %} <link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endcomment %}
+    {% comment %} <script src="{% static 'js/main.js' %}" defer></script> {% endcomment %}
+</head>
+<body>
+    <nav>
+        <a href="/">
+            <span role="img" aria-label= "Home" title="Home">🏠</span>
+        </a> |
+
+        {% if user.is_staff%}
+            <a href="{% url 'users:register' %}">
+                <span role="img" aria-label="User Registration" title="Registration">🚀</span>
+            </a> |
+            <a href="{% url 'worksites:list' %}">
+                <span role="img" aria-label="Worksites" title="Worksites">📰</span>
+            </a> |
+            <a href="{% url 'worksites:new-post' %}">
+                <span role="img" aria-label="New Post" title="New Post">🆕</span>
+            </a> |
+        {% endif %}
+        
+        {% if not user.is_staff and user.is_authenticated %}
+            <a href="{% url 'worksites:new-post' %}">
+                <span role="img" aria-label="New Post" title="New Post">🆕</span>
+            </a> |
+            <a href="{% url 'worksites:single-list' %}">
+                <span role="img" aria-label="my posts" title="My Posts">📰</span>
+            </a> |
+
+        {% endif %}
+    
+        {% if user.is_authenticated %}
+            {% comment %} <a href="{% url 'profiles:profile/<str:pk>' %}">
+                <span role="img" aria-label="User profile" title="profile">Profile👨‍🏭</span>
+            </a>  {% endcomment %}
+            <form class="logout" action="{% url 'users:logout' %}" method="post">
+                {% csrf_token %}
+                <button class="logout-button" aria-label="User Logout" title="User Logout">👋</button>
+            </form>
+        {% else %}
+            <a href="{% url 'users:login' %}">
+                <span role="img" aria-label="User Login" title="Login">🔑</span>
+            </a> 
+        {% endif %}
+    </nav>
+    <main>
+        <div>
+            <div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

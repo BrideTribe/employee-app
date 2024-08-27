@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+
+{% block content %}
+    {% for user in users %}
+        <article>
+            <img src="{{ user.profile.image.url }}">
+            <div>
+                <p>{{ user.username }}</p>
+                <p>{{ user.email }}</p>
+                <p>{{ user.profile.phone }}</p>
+            </div>
+        </article>
+    {% endfor %}
+    <h1>Home</h1>
+    {% if user.is_authenticated %}
+        <p>Check out my <a href="/profiles/profile">User Profile</a> page.</p>
+    {% endif %}
+{% endblock %}

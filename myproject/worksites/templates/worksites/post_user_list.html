@@ -1,0 +1,30 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}
+    Worksites
+{% endblock %}
+
+
+{% block content %}
+    <section>
+    {% if user.is_authenticated %}
+        <h1>{{ user.first_name|upper }}</h1>
+    {% endif %}
+        <p>My Posts</P>
+
+    {% for worksite in user_posts %}
+        <article class="worksite">
+            <h2>
+                <a href="{% url 'worksites:page' slug=worksite.slug %}">
+                {{ worksite.title }}
+                </a>
+            </h2>
+            <p>{{ worksite.date|date:"F d, Y" }} by {{ worksite.author.first_name }}</p>
+            <p>{{ worksite.site_name|upper }}</p>
+            <a href="/worksites/update-post/"><button>Edit</button></a>
+            <hr>
+        </article>
+    {% endfor %}
+    </section>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Edit Post
+{% endblock %}
+
+
+{% block content %}
+    <section>
+        <h1>Edit Post</h1>
+        <form class="form-with-validation" action="{% url 'worksites:update-post' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="form-submit">Update Post</button>
+        </form>
+        <a href="/worksites/update-post/"><button>Edit</button></a>
+    </section>
+    
+{% endblock %}

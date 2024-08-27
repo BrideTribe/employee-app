@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    {{ user.username }}
+{% endblock %}
+
+
+{% block content %}
+    <section>
+    {% if user.is_authenticated %}
+        <img
+            class="image"
+            src="{{ user.profile.image.url }}"
+            alt="{{ user.username}}"
+        />
+        <h2>Profile Info</h2>
+        <h1>{{ user.username }}</h1>
+        <p>{{ user.first_name }} {{ user.last_name }}</p>
+        <p>{{ user.worksite.site_name }}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.profile.phone }}</p>
+    </section>
+    {% endif %}
+    <p>Check out my <a href="/profiles/profile_edit">Edit Profile</a> page.</p>
+
+    
+{% endblock %}

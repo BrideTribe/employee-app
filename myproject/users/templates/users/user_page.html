@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    {{ worksite.title }}
+{% endblock %}
+
+
+{% block content %}
+    <section>
+        <img
+            class="image"
+            src="{{ user.profile.image.url }}"
+            alt="{{ user.username}}"
+        />
+        <h1>{{ user.worksite.site_name }}</h1>
+        <p>{{ .date }}</p>
+        <p>{{ worksite.title }}</p>
+        <p>{{ worksite.content }}</p>
+        <p>Absentees: {{ worksite.absentees }}</p>
+    
+    </section>
+{% endblock %}
